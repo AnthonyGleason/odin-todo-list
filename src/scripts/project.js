@@ -1,7 +1,9 @@
-function Project(index,name,currentProject){
+import { DEFAULTDISPLAY } from "./display";
+
+function Project(index,projectName,currentProject){
     this.taskArray=[];
     this.index=index;
-    this.name=name;
+    this.projectName=projectName;
     this.currentProject=currentProject;
 };
 Project.prototype.addTask = function (task){
@@ -9,11 +11,13 @@ Project.prototype.addTask = function (task){
 };
 Project.prototype.removeTask = function (task){
     this.taskArray.splice(task.index, 1);
+    DEFAULTLIST.updateProjectIndexes();
 };
 Project.switchCurrentProject = function (newProject){
     this.currentProject=false;
     newProject.currentProject=true;
 };
+//take task priority into consideration when distributing task indexes
 Project.prototype.updateTaskIndexes = function (){
     let i=0;
     this.taskArray.forEach((task)=>{
@@ -33,9 +37,10 @@ ProjectList.prototype.getCurrentProject = function (){
        return (project.currentProject==true ? true : false);
     });
 };
-ProjectList.prototype.removeProject = function (project){
-    this.projectArray.splice(project.index, 1);
+ProjectList.prototype.removeProject = function (index){
+    this.projectArray.splice(index, 1);
 };
+//allow reordering of projects
 ProjectList.prototype.updateProjectIndexes = function (){
     let i=0;
     this.projectArray.forEach((project)=>{
@@ -50,6 +55,8 @@ let DEFAULTLIST = new ProjectList();
 //Creates the default project and sets it as current project
 let DEFAULTPROJECT = new Project(DEFAULTLIST.projectArray.length,"default",true);
 DEFAULTLIST.addProject(DEFAULTPROJECT);
+DEFAULTDISPLAY.displayProjects();
+DEFAULTDISPLAY.addButtonListeners();
 console.log(DEFAULTLIST);
 
 export {Project, ProjectList,DEFAULTLIST};
