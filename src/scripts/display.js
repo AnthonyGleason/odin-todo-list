@@ -1,8 +1,10 @@
 function Display(){
     this.projectButtonContainer = document.querySelector(".button-container");
+    this.projectSubmitButton = document.querySelector("#submit-button");
+    this.newProjectButton = document.querySelector("#new-project-button");
+    this.projectCancelButton = document.querySelector("#cancel-button");
+    this.newProjectForm = document.querySelector("#new-project-form");
 };
-
-//up to here
 
 //clears the button container of all project items
 Display.prototype.clearButtonContainer = function (){
@@ -27,7 +29,10 @@ Display.prototype.createProjectDiv = function (project){
     projectDiv.appendChild(projectCancelButton);
     return projectDiv;
 };
-
+//toggles the new project form
+Display.prototype.toggleNewProjectForm = function (){
+    this.newProjectForm.style.display=='none' ? this.newProjectForm.style.display='block' : this.newProjectForm.style.display= 'none';
+}
 //updates the button container with all project items from the ProjectList Array
 Display.prototype.updateProjectButtonContainer = function (projectList){
     this.clearButtonContainer();

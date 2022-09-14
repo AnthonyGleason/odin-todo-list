@@ -8,6 +8,9 @@ import {Listener} from "./scripts/listeners.js";
 let DEFAULTLIST = new ProjectList();
 let DEFAULTPROJECT = new Project("default", true);
 let DEFAULTDISPLAY = new Display(); 
-let DEFAUTLISTENERS = new Listener;
+let DEFAUTLISTENERS = new Listener();
 
 DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY, DEFAULTLIST, DEFAUTLISTENERS);
+
+//Adds the event listeners for submit and cancelling new projects
+DEFAUTLISTENERS.addProjectFormListeners(DEFAULTDISPLAY, DEFAULTLIST, DEFAUTLISTENERS);

@@ -15,9 +15,11 @@
         <div class="sidebar-title">Projects</div>
         <div class="button-container"></div>
         <button id="new-project-button" class="sidebar-button">New Project</button>
-        <form id="new-project-form" style="display: none">
-            <button id="submit-button" class="sidebar-button"></button>
-            <button id="cancel-button" class="sidebar-button"></button>
+        <form id="new-project-form" class="sidebar-project-form" style="display: none">
+            <label for="projectName">Project Name:</label>
+            <input type="text" id="projectName"> 
+            <button type="button" id="submit-button" class="sidebar-button">Submit</button>
+            <button type="button" id="cancel-button" class="sidebar-button">Cancel</button>
         </form>
     </div>
 </body>

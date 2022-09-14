@@ -9,7 +9,7 @@ ProjectList.prototype.addProject = function (project, display, projectList, list
     this.updateIndexes();
     display.updateProjectButtonContainer(projectList);
     //add remove button event listeners
-    listeners.addRemoveProjectListeners(projectList,display);
+    listeners.addRemoveProjectListener(project,projectList,display);
 }
 ProjectList.prototype.pushProject = function (project){
     this.projectArray.push(project);
