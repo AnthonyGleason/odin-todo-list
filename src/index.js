@@ -1,18 +1,13 @@
 import "../src/styles/styles.css";
-import {DEFAULTLIST,Project,ProjectList} from "../src/scripts/project.js";
-import {Task} from "../src/scripts/task.js";
-import {DEFAULTDISPLAY} from "../src/scripts/display.js";
+import {Display } from "./scripts/display.js";
+import {Project} from "./scripts/project.js";
+import {ProjectList} from "./scripts/projectList.js";
+import {Listener} from "./scripts/listeners.js";
 
-DEFAULTDISPLAY.submitButton.addEventListener('click', ()=>{
-    let tempProject = new Project(DEFAULTLIST.projectArray.length,projectName.value,false);
-    DEFAULTLIST.addProject(tempProject);
-    DEFAULTDISPLAY.clearProjectDisplay();
-    DEFAULTDISPLAY.displayProjects();
-    DEFAULTDISPLAY.addButtonListeners();
-});
-DEFAULTDISPLAY.addProjectButton.addEventListener('click', ()=>{
-    DEFAULTDISPLAY.toggleForm();
-});
-DEFAULTDISPLAY.cancelProjectButton.addEventListener('click', ()=>{
-    DEFAULTDISPLAY.toggleForm();
-})
+//creates a default list for all projects and add the newly created default project to it
+let DEFAULTLIST = new ProjectList();
+let DEFAULTPROJECT = new Project("default", true);
+let DEFAULTDISPLAY = new Display(); 
+let DEFAUTLISTENERS = new Listener;
+
+DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY, DEFAULTLIST, DEFAUTLISTENERS);

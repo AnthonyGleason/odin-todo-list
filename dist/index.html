@@ -7,20 +7,19 @@
     <title>Odin Todo List</title>
 </head>
 <body>
-    <header>
-        <img class="header-img" alt="todo-list">
-    </header>
+    <div class="header">
+        <img class="header-logo">
+        <div class="header-title"></div>
+    </div>
     <div class="sidebar">
         <div class="sidebar-title">Projects</div>
-        <div class="sidebar-button-container"></div>
-        <button class="sidebar-button" id="add-project-button">Add New Project</button>
-        <form style="display: none" class="sidebar-project">
-            <label for="projectName">Project Name:</label>
-            <input type="text" id="projectName"> 
-            <button type="button" id="submit-button">Confirm</button>
-            <button type="button" id="cancel-button">Cancel</button>
+        <div class="button-container"></div>
+        <button id="new-project-button" class="sidebar-button">New Project</button>
+        <form id="new-project-form" style="display: none">
+            <button id="submit-button" class="sidebar-button"></button>
+            <button id="cancel-button" class="sidebar-button"></button>
         </form>
     </div>
 </body>
-    <script src="main.js"></script>
+<script src="main.js"></script>
 </html>
