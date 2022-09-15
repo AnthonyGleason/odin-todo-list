@@ -1,3 +1,5 @@
+import {Project} from "./project.js";
+
 function Display(){
     this.newProjectButton = document.querySelector('#new-project-button');
     this.newProjectForm = document.querySelector('#new-project-form');
@@ -9,8 +11,16 @@ Display.prototype.addProject = function(projectDiv){
     this.projectItemContainer.appendChild(projectDiv);
 };
 
-Display.prototype.addProjectFormListeners = function (){
-
+Display.prototype.addProjectFormListeners = function (ProjectList){
+    this.newProjectButton.addEventListener('click', ()=>{
+        this.toggleNewProjectForm();
+    });
+    this.newProjectSubmitButton.addEventListener('click', ()=>{
+        ProjectList.addProject((new Project(projectName.value,false)),this);
+    });
+    this.newProjectCancelButton.addEventListener('click', ()=>{
+        this.toggleNewProjectForm();
+    });
 };
 Display.prototype.createProjectItem = function (Project, ProjectList){
     let projectDiv = document.createElement('div');
@@ -37,12 +47,12 @@ Display.prototype.createProjectItem = function (Project, ProjectList){
 Display.prototype.clearProjectDisplay = function (){
     this.projectItemContainer.innerHTML="";
 };
-Display.prototype.init = function (){
-
+Display.prototype.init = function (ProjectList){
+    this.addProjectFormListeners(ProjectList);
 };
 
 Display.prototype.toggleNewProjectForm = function (){
-    
+    this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'block' : this.newProjectForm.style.display = 'none';
 };
 Display.prototype.updateProjectDisplay = function (ProjectList){
     this.clearProjectDisplay();
@@ -50,4 +60,5 @@ Display.prototype.updateProjectDisplay = function (ProjectList){
         this.addProject(this.createProjectItem(Project, ProjectList));
     });
 };
+
 export {Display};

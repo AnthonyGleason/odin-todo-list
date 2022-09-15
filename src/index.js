@@ -6,5 +6,5 @@ let DEFAULTLIST = new ProjectList();
 let DEFAULTDISPLAY = new Display();
 let DEFAULTPROJECT = new Project("default", true);
 
-//DEFAULTDISPLAY.init();
+DEFAULTDISPLAY.init(DEFAULTLIST);
 DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY);
