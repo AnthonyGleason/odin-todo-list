@@ -1,45 +1,53 @@
 function Display(){
-    this.projectButtonContainer = document.querySelector(".button-container");
-    this.projectSubmitButton = document.querySelector("#submit-button");
-    this.newProjectButton = document.querySelector("#new-project-button");
-    this.projectCancelButton = document.querySelector("#cancel-button");
-    this.newProjectForm = document.querySelector("#new-project-form");
+    this.newProjectButton = document.querySelector('#new-project-button');
+    this.newProjectForm = document.querySelector('#new-project-form');
+    this.newProjectSubmitButton = document.querySelector('#submit-button');
+    this.newProjectCancelButton = document.querySelector('#cancel-button');
+    this.projectItemContainer = document.querySelector('#project-item-container');
+};
+Display.prototype.addProject = function(projectDiv){
+    this.projectItemContainer.appendChild(projectDiv);
 };
 
-//clears the button container of all project items
-Display.prototype.clearButtonContainer = function (){
-   this.projectButtonContainer.innerHTML='';
+Display.prototype.addProjectFormListeners = function (){
+
 };
-Display.prototype.createProjectDiv = function (project){
-    //Create the project container
+Display.prototype.createProjectItem = function (Project, ProjectList){
     let projectDiv = document.createElement('div');
     projectDiv.setAttribute('class', 'project-item');
-    projectDiv.setAttribute('index',project.index);
+    projectDiv.setAttribute('index',Project.index);
     //Create the project name text div
     let projectText = document.createElement('div');
     projectText.setAttribute('class', 'project-item-text')
-    projectText.setAttribute('index',project.index);
-    projectText.textContent=project.projectName;
+    projectText.setAttribute('index',Project.index);
+    projectText.textContent=Project.projectName;
     projectDiv.appendChild(projectText);
     //Create the X button to remove projects
     let projectCancelButton = document.createElement('button');
     projectCancelButton.setAttribute('class', 'project-remove-button');
-    projectCancelButton.setAttribute('index',project.index);
+    projectCancelButton.setAttribute('index',Project.index);
     projectCancelButton.textContent="X";
+    projectCancelButton.addEventListener('click', ()=>{
+        ProjectList.removeProject(projectCancelButton.getAttribute('index'), this);
+    });
     projectDiv.appendChild(projectCancelButton);
+
     return projectDiv;
 };
-//toggles the new project form
-Display.prototype.toggleNewProjectForm = function (){
-    this.newProjectForm.style.display=='none' ? this.newProjectForm.style.display='block' : this.newProjectForm.style.display= 'none';
-}
-//updates the button container with all project items from the ProjectList Array
-Display.prototype.updateProjectButtonContainer = function (projectList){
-    this.clearButtonContainer();
-    projectList.projectArray.forEach((project) => {
-        let projectDiv = this.createProjectDiv(project);
-        this.projectButtonContainer.appendChild(projectDiv);
-    });
+Display.prototype.clearProjectDisplay = function (){
+    this.projectItemContainer.innerHTML="";
+};
+Display.prototype.init = function (){
+
 };
 
+Display.prototype.toggleNewProjectForm = function (){
+    
+};
+Display.prototype.updateProjectDisplay = function (ProjectList){
+    this.clearProjectDisplay();
+    ProjectList.projectArray.forEach(Project => {
+        this.addProject(this.createProjectItem(Project, ProjectList));
+    });
+};
 export {Display};

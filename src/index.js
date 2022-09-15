@@ -1,16 +1,10 @@
-import "../src/styles/styles.css";
-import {Display } from "./scripts/display.js";
-import {Project} from "./scripts/project.js";
-import {ProjectList} from "./scripts/projectList.js";
-import {Listener} from "./scripts/listeners.js";
+import "./styles/styles.css";
+import { ProjectList, Project } from "./scripts/project.js";
+import { Display } from "./scripts/display.js";
 
-//creates a default list for all projects and add the newly created default project to it
 let DEFAULTLIST = new ProjectList();
+let DEFAULTDISPLAY = new Display();
 let DEFAULTPROJECT = new Project("default", true);
-let DEFAULTDISPLAY = new Display(); 
-let DEFAUTLISTENERS = new Listener();
 
-DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY, DEFAULTLIST, DEFAUTLISTENERS);
-
-//Adds the event listeners for submit and cancelling new projects
-DEFAUTLISTENERS.addProjectFormListeners(DEFAULTDISPLAY, DEFAULTLIST, DEFAUTLISTENERS);
+//DEFAULTDISPLAY.init();
+DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY);
