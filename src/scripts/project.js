@@ -17,11 +17,16 @@ ProjectList.prototype.addProject = function (Project, Display){
     //refresh the display
     Display.updateProjectDisplay(this);
 };
-
+ProjectList.prototype.getCurrentProject = function (){
+    let currentProject;
+    this.projectArray.forEach((Project)=>{
+        Project.isCurrentProject==true ? currentProject=Project : currentProject=Project;
+    });
+    return currentProject;
+};
 ProjectList.prototype.pushToArray = function (Project){
     this.projectArray.push(Project);
 };
-
 ProjectList.prototype.removeProject = function (index, Display){
     this.projectArray.splice(index,1);
     //update indexes
@@ -30,7 +35,10 @@ ProjectList.prototype.removeProject = function (index, Display){
     Display.updateProjectDisplay(this);
     
 };
-
+ProjectList.prototype.switchProject = function (newProjectIndex){
+    this.getCurrentProject.isCurrentProject=false;
+    this.projectArray[newProjectIndex].isCurrentProject=true;
+};
 ProjectList.prototype.updateIndexes = function (){
     let i=0;
     this.projectArray.forEach((project)=>{
