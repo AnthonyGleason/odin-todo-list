@@ -20,7 +20,7 @@ ProjectList.prototype.addProject = function (Project, Display){
 ProjectList.prototype.getCurrentProject = function (){
     let currentProject;
     this.projectArray.forEach((Project)=>{
-        Project.isCurrentProject==true ? currentProject=Project : currentProject=Project;
+        Project.isCurrentProject==true ? currentProject=Project : null;
     });
     return currentProject;
 };
@@ -36,7 +36,7 @@ ProjectList.prototype.removeProject = function (index, Display){
     
 };
 ProjectList.prototype.switchProject = function (newProjectIndex){
-    this.getCurrentProject.isCurrentProject=false;
+    this.getCurrentProject().isCurrentProject=false;
     this.projectArray[newProjectIndex].isCurrentProject=true;
 };
 ProjectList.prototype.updateIndexes = function (){

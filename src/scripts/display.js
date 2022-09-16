@@ -6,6 +6,8 @@ function Display(){
     this.newProjectSubmitButton = document.querySelector('#submit-button');
     this.newProjectCancelButton = document.querySelector('#cancel-button');
     this.projectItemContainer = document.querySelector('#project-item-container');
+    this.newTaskButton = document.querySelector('#new-task-button');
+    this.newTaskForm = document.querySelector('#new-task-form');
 };
 Display.prototype.addProject = function(projectDiv){
     this.projectItemContainer.appendChild(projectDiv);
@@ -22,16 +24,26 @@ Display.prototype.addProjectFormListeners = function (ProjectList){
         this.toggleNewProjectForm();
     });
 };
+Display.prototype.addTaskFormListeners = function (){
+    this.newTaskButton.addEventListener('click', ()=>{
+        this.toggleNewTaskForm();
+    });
+}
 Display.prototype.createProjectItem = function (Project, ProjectList){
     let projectDiv = document.createElement('div');
     projectDiv.setAttribute('class', 'project-item');
     projectDiv.setAttribute('index',Project.index);
-    //Create the project name text div
-    let projectText = document.createElement('div');
-    projectText.setAttribute('class', 'project-item-text')
-    projectText.setAttribute('index',Project.index);
-    projectText.textContent=Project.projectName;
-    projectDiv.appendChild(projectText);
+    //Create the project name button
+    let currentProjectButton = document.createElement('button');
+    currentProjectButton.setAttribute('class', 'project-item-button')
+    currentProjectButton.setAttribute('index',Project.index);
+    currentProjectButton.textContent=Project.projectName;
+    currentProjectButton.addEventListener('click', ()=>{
+        console.log(ProjectList.getCurrentProject());
+        ProjectList.switchProject(Project.index);
+        console.log(ProjectList.getCurrentProject());
+    });
+    projectDiv.appendChild(currentProjectButton);
     //Create the X button to remove projects
     let projectCancelButton = document.createElement('button');
     projectCancelButton.setAttribute('class', 'project-remove-button');
@@ -49,11 +61,16 @@ Display.prototype.clearProjectDisplay = function (){
 };
 Display.prototype.init = function (ProjectList){
     this.addProjectFormListeners(ProjectList);
+    this.addTaskFormListeners();
 };
 
 Display.prototype.toggleNewProjectForm = function (){
     this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'block' : this.newProjectForm.style.display = 'none';
 };
+Display.prototype.toggleNewTaskForm = function (){
+    this.newTaskForm.style.display == 'none' ? this.newTaskForm.style.display = 'block' : this.newTaskForm.style.display = 'none';
+};
+
 Display.prototype.updateProjectDisplay = function (ProjectList){
     this.clearProjectDisplay();
     ProjectList.projectArray.forEach(Project => {
