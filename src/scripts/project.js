@@ -33,7 +33,6 @@ ProjectList.prototype.removeProject = function (index, Display){
     this.updateIndexes();
     //refresh the display
     Display.updateProjectDisplay(this);
-    
 };
 ProjectList.prototype.switchProject = function (newProjectIndex){
     this.getCurrentProject().isCurrentProject=false;

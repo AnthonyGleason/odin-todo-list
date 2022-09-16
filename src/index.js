@@ -16,4 +16,5 @@ DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY);
 //after that use css to style the current Project.
 //maybe add something to highlight the current Project when update display is called that would mean calling update display within the switch project function.
 
-//bug warning if all projects are deleted no project will be set as the current project
+//update task indexes should take priority into account. for example if a prority is high it will be placed first on the list
+//bug warning if all projects are deleted no project will be set as the current project, also if currentProject is deleted there is no longer any currentProject which breaks the program.

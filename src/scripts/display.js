@@ -39,9 +39,7 @@ Display.prototype.createProjectItem = function (Project, ProjectList){
     currentProjectButton.setAttribute('index',Project.index);
     currentProjectButton.textContent=Project.projectName;
     currentProjectButton.addEventListener('click', ()=>{
-        console.log(ProjectList.getCurrentProject());
         ProjectList.switchProject(Project.index);
-        console.log(ProjectList.getCurrentProject());
     });
     projectDiv.appendChild(currentProjectButton);
     //Create the X button to remove projects
