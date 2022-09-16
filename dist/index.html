@@ -23,9 +23,15 @@
         </form>
     </div>
     <div class="content">
-        <div class="content-title">
-            
-        </div>
+        <div class="content-title"></div>
+        <div id="task-item-container"></div>
+        <button id="new-task-button" class="content-button">New Task</button>
+        <form id="new-task-form" class="content-task-form" style="display: none">
+            <label for="taskName">Task Name:</label>
+            <input type="text" id="taskName"> 
+            <button type="button" id="submit-button" class="content-button">Submit</button>
+            <button type="button" id="cancel-button" class="content-button">Cancel</button>
+        </form>
     </div>
 </body>
 <script src="main.js"></script>
