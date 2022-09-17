@@ -1,8 +1,38 @@
+import { Display } from "./display";
+
 function Project(projectName, isCurrentProject){
     this.isCurrentProject = isCurrentProject;
     this.index;
     this.projectName = projectName;
     this.taskArray = [];
+};
+Project.prototype.addTask = function (Task, Display){
+    //index the task
+    Task.index = this.taskArray.length;
+    //push the task to the array
+    this.pushToArray(Task);
+    //refresh the display
+    Display.updateTaskDisplay(this);
+};
+
+Project.prototype.pushToArray = function (Task){
+    this.taskArray.push(Task);
+};
+
+Project.prototype.removeTask = function (index,Display){
+    this.taskArray.splice(index,1);
+    //update indexes
+    this.updateIndexes();
+    //refresh display
+    Display.updateTaskDisplay(this);
+    
+};
+Project.prototype.updateIndexes = function (){
+    let i=0;
+    this.taskArray.forEach((task)=>{
+        task.index=i;
+        i++;
+    });
 };
 
 function ProjectList(){

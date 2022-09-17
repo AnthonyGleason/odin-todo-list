@@ -8,11 +8,16 @@ function Display(){
     this.projectItemContainer = document.querySelector('#project-item-container');
     this.newTaskButton = document.querySelector('#new-task-button');
     this.newTaskForm = document.querySelector('#new-task-form');
+    this.taskItemContainer = document.querySelector('#task-item-container');
 };
 Display.prototype.addProject = function(projectDiv){
     this.projectItemContainer.appendChild(projectDiv);
 };
-
+Display.prototype.addTask = function(taskDiv){
+    console.log(this.taskItemContainer);
+    console.log(taskDiv);
+    this.taskItemContainer.appendChild(taskDiv);
+};
 Display.prototype.addProjectFormListeners = function (ProjectList){
     this.newProjectButton.addEventListener('click', ()=>{
         this.toggleNewProjectForm();
@@ -54,9 +59,16 @@ Display.prototype.createProjectItem = function (Project, ProjectList){
 
     return projectDiv;
 };
+Display.prototype.createTaskItem = function (){
+    return document.createElement('div');
+};
 Display.prototype.clearProjectDisplay = function (){
     this.projectItemContainer.innerHTML="";
 };
+Display.prototype.clearTaskDisplay = function (){
+    this.taskItemContainer.innerHTML="";
+};
+
 Display.prototype.init = function (ProjectList){
     this.addProjectFormListeners(ProjectList);
     this.addTaskFormListeners();
@@ -73,6 +85,13 @@ Display.prototype.updateProjectDisplay = function (ProjectList){
     this.clearProjectDisplay();
     ProjectList.projectArray.forEach(Project => {
         this.addProject(this.createProjectItem(Project, ProjectList));
+    });
+};
+
+Display.prototype.updateTaskDisplay = function (Project){
+    this.clearTaskDisplay();
+    Project.taskArray.forEach(Task =>{
+        this.addTask(this.createTaskItem(Task, Project));
     });
 };
 
