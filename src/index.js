@@ -7,12 +7,10 @@ let DEFAULTLIST = new ProjectList();
 let DEFAULTDISPLAY = new Display();
 let DEFAULTPROJECT = new Project("default", true);
 
-DEFAULTDISPLAY.init(DEFAULTLIST);
+DEFAULTDISPLAY.init(DEFAULTLIST, DEFAULTPROJECT);
 DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY);
 DEFAULTPROJECT.addTask(new Task(1,1,1,1,1,1,1), DEFAULTDISPLAY);
-
-//working within display.addtask() and createTaskItem... need to get task data outputted to screen backend is done
-
+//working within create task item
 
 //switch the text section of creating new projects to be buttons, the event listener for click should run switch project and send the index of the button over to switchProject()
 //feature: needs to be able to switch project names and update task fields

@@ -43,3 +43,12 @@ body{
 .project-item{
     display: flex;
 }
+.task-item{
+    display: grid;
+    grid-template-areas: 
+    "task-name task-desc task-due-date"
+    "task-priority task-notes task-checklist";
+}
+.task-name{
+    grid-area: task-name;
+}

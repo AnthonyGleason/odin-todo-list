@@ -1,12 +1,15 @@
 import {Project} from "./project.js";
+import { Task } from "./task.js";
 
 function Display(){
     this.newProjectButton = document.querySelector('#new-project-button');
     this.newProjectForm = document.querySelector('#new-project-form');
-    this.newProjectSubmitButton = document.querySelector('#submit-button');
-    this.newProjectCancelButton = document.querySelector('#cancel-button');
+    this.newProjectSubmitButton = document.querySelector('#project-submit-button');
+    this.newProjectCancelButton = document.querySelector('#project-cancel-button');
     this.projectItemContainer = document.querySelector('#project-item-container');
     this.newTaskButton = document.querySelector('#new-task-button');
+    this.newTaskSubmitButton = document.querySelector('#task-submit-button');
+    this.newTaskCancelButton = document.querySelector('#task-cancel-button');
     this.newTaskForm = document.querySelector('#new-task-form');
     this.taskItemContainer = document.querySelector('#task-item-container');
 };
@@ -14,8 +17,6 @@ Display.prototype.addProject = function(projectDiv){
     this.projectItemContainer.appendChild(projectDiv);
 };
 Display.prototype.addTask = function(taskDiv){
-    console.log(this.taskItemContainer);
-    console.log(taskDiv);
     this.taskItemContainer.appendChild(taskDiv);
 };
 Display.prototype.addProjectFormListeners = function (ProjectList){
@@ -29,8 +30,15 @@ Display.prototype.addProjectFormListeners = function (ProjectList){
         this.toggleNewProjectForm();
     });
 };
-Display.prototype.addTaskFormListeners = function (){
+Display.prototype.addTaskFormListeners = function (Project){
     this.newTaskButton.addEventListener('click', ()=>{
+        this.toggleNewTaskForm();
+    });
+    this.newTaskSubmitButton.addEventListener('click', ()=>{
+        //need to setup task adding
+        Project.addTask((new Task()));
+    });
+    this.newTaskCancelButton.addEventListener('click',()=>{
         this.toggleNewTaskForm();
     });
 }
@@ -59,8 +67,46 @@ Display.prototype.createProjectItem = function (Project, ProjectList){
 
     return projectDiv;
 };
-Display.prototype.createTaskItem = function (){
-    return document.createElement('div');
+Display.prototype.createTaskItem = function (Task, Project){
+    //create the task item div
+    let taskDiv = document.createElement('div');
+    taskDiv.setAttribute('class', 'task-item');
+    //create the task name div
+    let taskNameDiv = document.createElement('div');
+    taskNameDiv.setAttribute('class', 'task-name')
+    taskNameDiv.textContent=[`Task Name: ${Task.taskName}`];
+    //create the desc div
+    let taskDescDiv = document.createElement('div');
+    taskDescDiv.setAttribute('class','task-desc');
+    taskDescDiv.textContent=[`Task Description: ${Task.desc}`];
+    //create the dueDate div
+    let taskDueDateDiv = document.createElement('div');
+    taskDueDateDiv.setAttribute('class','task-due-date');
+    taskDueDateDiv.textContent=[`Task Due Date: ${Task.dueDate}`];
+    //create the priority div
+    let taskPriorityDiv = document.createElement('div');
+    taskPriorityDiv.setAttribute('class','task-priority');
+    taskPriorityDiv.textContent=[`Task Priority: ${Task.priority}`];
+    //create the notes div
+    let taskNotesDiv = document.createElement('div');
+    taskNotesDiv.setAttribute('class','task-notes');
+    taskNotesDiv.textContent=[`Task Notes: ${Task.notes}`];
+    //create the checklist button
+    let taskChecklistButton = document.createElement('button');
+    taskChecklistButton.setAttribute('class', 'task-checklist');
+    this.initTaskChecklistButtonText(Task, taskChecklistButton);
+    taskChecklistButton.addEventListener('click', ()=>{
+        this.toggleTaskCompleted(Task, taskChecklistButton);
+    });
+
+    //append child elements to taskDiv
+    taskDiv.appendChild(taskNameDiv);
+    taskDiv.appendChild(taskDescDiv);
+    taskDiv.appendChild(taskDueDateDiv);
+    taskDiv.appendChild(taskPriorityDiv);
+    taskDiv.appendChild(taskNotesDiv);
+    taskDiv.appendChild(taskChecklistButton);
+    return taskDiv;
 };
 Display.prototype.clearProjectDisplay = function (){
     this.projectItemContainer.innerHTML="";
@@ -69,13 +115,28 @@ Display.prototype.clearTaskDisplay = function (){
     this.taskItemContainer.innerHTML="";
 };
 
-Display.prototype.init = function (ProjectList){
+Display.prototype.init = function (ProjectList,Project){
     this.addProjectFormListeners(ProjectList);
-    this.addTaskFormListeners();
+    this.addTaskFormListeners(Project);
 };
-
+Display.prototype.initTaskChecklistButtonText = function(Task, taskChecklistButton){
+    if (Task.checklist==true){
+        taskChecklistButton.textContent="Completed! :)";
+    }else if (Task.checklist==false){
+        taskChecklistButton.textContent="Not Completed";
+    }
+};
 Display.prototype.toggleNewProjectForm = function (){
     this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'block' : this.newProjectForm.style.display = 'none';
+};
+Display.prototype.toggleTaskCompleted = function (Task, taskChecklistButton){
+    if (Task.checklist==false){
+        taskChecklistButton.textContent="Completed! :)";
+        Task.checklist=true;
+    }else if (Task.checklist==true){
+        taskChecklistButton.textContent="Not Completed";
+        Task.checklist=false
+    }
 };
 Display.prototype.toggleNewTaskForm = function (){
     this.newTaskForm.style.display == 'none' ? this.newTaskForm.style.display = 'block' : this.newTaskForm.style.display = 'none';
