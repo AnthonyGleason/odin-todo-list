@@ -10,7 +10,6 @@ let DEFAULTPROJECT = new Project("default", true);
 DEFAULTDISPLAY.init(DEFAULTLIST, DEFAULTPROJECT);
 DEFAULTLIST.addProject(DEFAULTPROJECT, DEFAULTDISPLAY);
 DEFAULTPROJECT.addTask(new Task("Default Task","Default Description","09/15/2022",3,"Default Notes",0,DEFAULTPROJECT.taskArray.length), DEFAULTDISPLAY);
-//Switching the project should update the content section with the projects tasks
 //0,1,2 task priority setup.. 0 =low 1=medium 2=high 2 gets outputted before the others
 
 //switch the text section of creating new projects to be buttons, the event listener for click should run switch project and send the index of the button over to switchProject()
