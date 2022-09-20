@@ -87,7 +87,9 @@ Display.prototype.createTaskItem = function (Task, Project){
     //create the priority div
     let taskPriorityDiv = document.createElement('div');
     taskPriorityDiv.setAttribute('class','task-priority');
-    taskPriorityDiv.textContent=[`Task Priority: ${Task.priority}`];
+    //convert the task priority to text
+    let taskPriority = Task.getTaskPriority();
+    taskPriorityDiv.textContent=[`Task Priority: ${taskPriority}`];
     //create the notes div
     let taskNotesDiv = document.createElement('div');
     taskNotesDiv.setAttribute('class','task-notes');
@@ -165,7 +167,19 @@ Display.prototype.updateProjectDisplay = function (ProjectList){
 
 Display.prototype.updateTaskDisplay = function (Project){
     this.clearTaskDisplay();
-    Project.taskArray.forEach(Task =>{
+    //filter for high (2) priority update
+    let highPriorityTaskArray=Project.taskArray.filter(Task => Task.priority==2)
+    highPriorityTaskArray.forEach(Task =>{
+        this.addTask(this.createTaskItem(Task, Project));
+    });
+    //filter for normal (1) priority update
+    let normalPriorityTaskArray=Project.taskArray.filter(Task => Task.priority==1)
+    normalPriorityTaskArray.forEach(Task =>{
+        this.addTask(this.createTaskItem(Task, Project));
+    });
+    //filter for low (0) priority update
+    let lowPriorityTaskArray=Project.taskArray.filter(Task => Task.priority==0)
+    lowPriorityTaskArray.forEach(Task =>{
         this.addTask(this.createTaskItem(Task, Project));
     });
 };
