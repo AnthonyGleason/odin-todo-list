@@ -91,6 +91,9 @@ Display.prototype.createTaskItem = function (Task, Project){
     let taskNotesDiv = document.createElement('div');
     taskNotesDiv.setAttribute('class','task-notes');
     taskNotesDiv.textContent=[`Task Notes: ${Task.notes}`];
+    //create the button container for the checklist button and remove task button
+    let taskButtonContainer = document.createElement('div');
+    taskButtonContainer.setAttribute('class', 'task-button-container');
     //create the checklist button
     let taskChecklistButton = document.createElement('button');
     taskChecklistButton.setAttribute('class', 'task-checklist');
@@ -98,6 +101,16 @@ Display.prototype.createTaskItem = function (Task, Project){
     taskChecklistButton.addEventListener('click', ()=>{
         this.toggleTaskCompleted(Task, taskChecklistButton);
     });
+    //create the remove task button
+    let taskRemoveButton = document.createElement('button');
+    taskRemoveButton.setAttribute('class', 'task-remove-button');
+    taskRemoveButton.textContent="Remove Task";
+    taskRemoveButton.addEventListener('click',()=>{
+        Project.removeTask(Task.index,this);
+    });
+    //append child elements to the task button container
+    taskButtonContainer.appendChild(taskChecklistButton);
+    taskButtonContainer.appendChild(taskRemoveButton);
 
     //append child elements to taskDiv
     taskDiv.appendChild(taskNameDiv);
@@ -105,7 +118,7 @@ Display.prototype.createTaskItem = function (Task, Project){
     taskDiv.appendChild(taskDueDateDiv);
     taskDiv.appendChild(taskPriorityDiv);
     taskDiv.appendChild(taskNotesDiv);
-    taskDiv.appendChild(taskChecklistButton);
+    taskDiv.appendChild(taskButtonContainer);
     return taskDiv;
 };
 Display.prototype.clearProjectDisplay = function (){
