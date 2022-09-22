@@ -65,6 +65,8 @@ let Display = function(){
     this.projectItemContainer = document.querySelector('.project-item-container')
     //content task item container
     this.taskItemContainer = document.querySelector('.task-item-container');
+    //content title (Displays currently selected project)
+    this.contentTitleDiv = document.querySelector('.content-title');
     //sidebar new project form buttons
     this.cancelNewProjectButton=document.querySelector('#project-cancel-button');
     this.submitNewProjectButton=document.querySelector('#project-submit-button');
@@ -126,6 +128,10 @@ Display.prototype.renderProjectItem = function(Project,ProjectList){
     let projectNameDiv = document.createElement('div');
     projectNameDiv.setAttribute('class', 'project-name');
     projectNameDiv.textContent=Project.projectName;
+    projectNameDiv.addEventListener('click',()=>{
+        ProjectList.switchCurrentProject(Project.index);
+        this.updateTaskDisplay(ProjectList);
+    });
     //Create the remove project button
     let projectRemoveButton = document.createElement('button');
     projectRemoveButton.setAttribute('class', 'project-remove-button');
@@ -198,6 +204,7 @@ Display.prototype.updateProjectDisplay = function(ProjectList){
 };
 Display.prototype.updateTaskDisplay = function(ProjectList){
     this.clearTaskContainer();
+    this.contentTitleDiv.textContent=ProjectList.getCurrentProject().projectName;
     ProjectList.getCurrentProject().taskArray.forEach((Task)=>{
         this.renderTaskItem(Task, ProjectList.getCurrentProject(), ProjectList);
     });
