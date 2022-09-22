@@ -7,40 +7,49 @@
     <title>Odin Todo List</title>
 </head>
 <body>
-    <div class="header">
-        <img class="header-logo">
-        <div class="header-title">Odin Todo Project!</div>
-    </div>
     <div class="sidebar">
         <div class="sidebar-title">Projects</div>
-        <div id="project-item-container"></div>
-        <button id="new-project-button" class="sidebar-button">New Project</button>
-        <form id="new-project-form" class="sidebar-project-form" style="display: none">
-            <label for="projectName">Project Name:</label>
-            <input type="text" id="projectName"> 
-            <button type="button" id="project-submit-button" class="sidebar-button">Submit</button>
-            <button type="button" id="project-cancel-button" class="sidebar-button">Cancel</button>
-        </form>
-    </div>
-    <div class="content">
-        <div class="content-title">Tasks</div>
-        <div id="task-item-container">
-            <!--setup a task item div-->
-            <div class="task-item">
-                <div class="task-name"></div>
-                <div class="desc"></div>
-                <div class="dueDate"></div>
-                <div class="priority"></div>
-                <div class="notes"></div>
-                <button class="checklist" type="button">Toggle Completed</button>
+        <div class="project-item-container">
+            <!--Example project item-->
+            <div class="project-item">
+                <div class="project-name">Project Name</div>
+                <button class="project-remove-button">Remove Project</button>
             </div>
         </div>
-        <button id="new-task-button" class="content-button">New Task</button>
-        <form id="new-task-form" class="content-task-form" style="display: none">
-            <label for="taskName">Task Name:</label>
-            <input type="text" id="taskName"> 
-            <button type="button" id="task-submit-button" class="content-button">Submit</button>
-            <button type="button" id="task-cancel-button" class="content-button">Cancel</button>
+        <button class="new-project-button">New Project</button>
+            <!--The new project form which is hidden by default-->
+            <form id="new-project-form" class="sidebar-project-form" style="display: ">
+                <input type="text" id="project-name" placeholder="Project Name"> 
+                <div class="project-button-container">
+                    <button type="button" id="project-submit-button" class="sidebar-button">Submit</button>
+                    <button type="button" id="project-cancel-button" class="sidebar-button">Cancel</button>
+                </div>
+            </form>
+    </div>
+    <div class="content">
+        <!--The content title should reflect the currently selected project-->
+        <div class="content-title">Selected Project</div>
+        <!--Holds the task items for the project-->
+        <div class="task-item-container">
+            <!--Example task item-->
+            <div class="task-item">
+                <div class="task-name">Task Name</div>
+                <div class="task-desc">Task Desc</div>
+                <div class="task-due-date">09/20/2022</div>
+                <button class="task-remove-button">Update Task</button>
+                <button class="task-remove-button">Remove Task</button>
+            </div>
+        </div>
+        <button class="new-task-button">New Task</button>
+        <!--The new task form which is hidden by default-->
+        <form id="new-task-form" style="display: ">
+            <input type="text" id="task-name" placeholder="Task Name">
+            <input type="text" id="task-desc" placeholder="Task Description">
+            <input type="date" id="task-due-date">
+            <div class="task-button-container">
+                <button type="button" id="task-submit-button">Submit</button>
+                <button type="button" id="task-cancel-button">Cancel</button>
+            </div>
         </form>
     </div>
 </body>
