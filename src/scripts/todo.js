@@ -48,8 +48,13 @@ ProjectList.prototype.removeProject = function(projectIndex){
     this.updateProjectIndexes();
 };
 ProjectList.prototype.switchCurrentProject = function(newProjectIndex){
-    this.getCurrentProject().isCurrentProject=false;
-    this.projectArray[newProjectIndex].isCurrentProject=true;
+    //working within here. if there is no current project set the selected project as the current
+    if (this.getCurrentProject()==undefined){
+        this.projectArray[newProjectIndex].isCurrentProject=true;
+    } else{
+        this.getCurrentProject().isCurrentProject=false;
+        this.projectArray[newProjectIndex].isCurrentProject=true;
+    }
 };
 ProjectList.prototype.updateProjectIndexes = function(){
     let i=0;
