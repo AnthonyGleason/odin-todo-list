@@ -8,6 +8,9 @@ let DEFAULTPROJECT = new Project("Default Project", true, DEFAULTLIST.projectArr
 let DEFAULTTASK = new Task("Default Task", "Default Task Description", "09/22/22", DEFAULTPROJECT.taskArray.length);
 
 //Things to run on first load of the webpage
-DISPLAYCONTROLLER.init();
+DISPLAYCONTROLLER.init(DEFAULTLIST);
 
-//working within project object... add functionality to add and remove tasks 
+//Display default project with default task
+DEFAULTLIST.addProject(DEFAULTPROJECT);
+DEFAULTPROJECT.addTask(DEFAULTTASK);
+DISPLAYCONTROLLER.updateProjectDisplay(DEFAULTLIST);

@@ -28,12 +28,18 @@ body{
 }
 .task-item{
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr 0.3fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr 0.5fr;
+    grid-template-rows: 1fr;
     grid-template-areas:
     "task-name task-desc task-due-date task-update-button"
     "task-name task-desc task-due-date task-remove-button";
     flex-grow: 1;
+    align-items: center;
+    border-style: solid;
+    border-color: rgb(44, 44, 44);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
 }
 .task-name{
     grid-area: task-name;
@@ -61,6 +67,7 @@ body{
 .task-item-container{
     flex-grow: 1;
 }
+
 /*Sidebar section*/
 .sidebar{
     background-color: #ffc9b4;
@@ -76,6 +83,11 @@ body{
 .project-item{
     display: flex;
     justify-content: space-between;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: rgb(44, 44, 44);
+    padding: 5px;
+    margin: 5px;   
 }
 
 .project-item-container{
