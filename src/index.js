@@ -5,7 +5,7 @@ import { Task, Display , Project, ProjectList } from "./scripts/todo.js";
 let DISPLAYCONTROLLER=new Display();
 let DEFAULTLIST = new ProjectList();
 let DEFAULTPROJECT = new Project("Default Project", true, DEFAULTLIST.projectArray.length);
-let DEFAULTTASK = new Task("Default Task", "Default Task Description", "09/22/22", DEFAULTPROJECT.taskArray.length);
+let DEFAULTTASK = new Task("Default Task", "Default Task Description", "2022-09-07", DEFAULTPROJECT.taskArray.length);
 
 //Things to run on first load of the webpage
 DISPLAYCONTROLLER.init(DEFAULTLIST);

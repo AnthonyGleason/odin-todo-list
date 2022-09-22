@@ -103,7 +103,8 @@ Display.prototype.addEventListeners = function(ProjectList){
         this.newTaskButton.style.display='block';
     });
     this.submitNewTaskButton.addEventListener('click',()=>{
-        
+        ProjectList.getCurrentProject().addTask(new Task(taskName.value,taskDesc.value,taskDueDate.value),ProjectList.getCurrentProject().taskArray.length);
+        this.updateTaskDisplay(ProjectList);
     });
     this.newTaskButton.addEventListener('click',()=>{
         this.toggleNewTaskForm();
