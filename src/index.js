@@ -1,2 +1,5 @@
 import "./styles/styles.css";
-import { Task } from "./scripts/todo.js";
+import { Task, Display } from "./scripts/todo.js";
+
+let DISPLAYCONTROLLER=new Display();
+DISPLAYCONTROLLER.init();
