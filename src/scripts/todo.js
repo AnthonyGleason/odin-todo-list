@@ -1,9 +1,20 @@
-let Task = function(taskName,taskDesc,taskDueDate){
+let Task = function(taskName,taskDesc,taskDueDate,index){
     this.taskName=taskName;
     this.taskDesc=taskDesc;
     this.taskDueDate=taskDueDate;
+    this.index=index;
 };
 
+let Project = function (projectName,isCurrentProject,index){
+    this.projectName=projectName;
+    this.isCurrentProject=isCurrentProject;
+    this.index=index;
+    this.taskArray=[];
+}
+
+let ProjectList = function (){
+    this.projectArray = [];
+};
 
 let Display = function(){
     //sidebar new project form buttons
@@ -50,12 +61,12 @@ Display.prototype.addEventListeners = function(){
 };
 
 Display.prototype.toggleNewProjectForm = function(){
-    this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'block' : this.newProjectForm.style.display = 'none';
+    this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'flex' : this.newProjectForm.style.display = 'none';
 };
 
 Display.prototype.toggleNewTaskForm = function(){
-    this.newTaskForm.style.display == 'none' ? this.newTaskForm.style.display = 'block' : this.newTaskForm.style.display = 'none';
+    this.newTaskForm.style.display == 'none' ? this.newTaskForm.style.display = 'flex' : this.newTaskForm.style.display = 'none';
 };
 
 
-export {Task , Display};
+export {Task , Display , Project, ProjectList};
