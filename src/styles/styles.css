@@ -60,13 +60,14 @@ body{
 .task-button-container{
     flex-grow: 1;
     display: flex;
-    overflow: scroll;
 }
 .task-button-container button{
     width: 100%;
 }
 .task-item-container{
     flex-grow: 1;
+    height: 500px;
+    overflow: scroll;
 }
 
 /*Sidebar section*/
@@ -91,10 +92,13 @@ body{
     padding: 5px;
     margin: 5px;   
 }
-
+.project-name{
+    flex-grow: 1;
+}
 .project-item-container{
     flex-grow: 1;
-    overflow: scroll;
+    height: 500px;
+    overflow:scroll;
 }
 #new-project-form{
     display: flex;
