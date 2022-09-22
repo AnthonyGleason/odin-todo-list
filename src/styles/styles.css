@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #6C5B7B;
+    background-image: url(../img/notebook-paper-texture.jpg);
     height: 100vh;
     width: 100vw;
     display: grid;
@@ -13,7 +13,8 @@ body{
 
 /*Content Section*/
 .content{
-    background-color: #ffc9cf;
+    background-color: rgba(14, 20, 14, 0.8);
+    color: white;
     margin: 1%;
     padding: 2%;
     border-radius: 15px;
@@ -70,7 +71,8 @@ body{
 
 /*Sidebar section*/
 .sidebar{
-    background-color: #ffc9b4;
+    background-color: rgba(14, 20, 14, 0.8);
+    color: white;
     display: flex;
     flex-direction: column;
     margin: 3%;

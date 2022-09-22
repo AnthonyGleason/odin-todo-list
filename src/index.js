@@ -11,6 +11,7 @@ let DEFAULTTASK = new Task("Default Task", "Default Task Description", "09/22/22
 DISPLAYCONTROLLER.init(DEFAULTLIST);
 
 //Display default project with default task
-DEFAULTLIST.addProject(DEFAULTPROJECT);
 DEFAULTPROJECT.addTask(DEFAULTTASK);
+DEFAULTLIST.addProject(DEFAULTPROJECT);
+DISPLAYCONTROLLER.updateTaskDisplay(DEFAULTLIST);
 DISPLAYCONTROLLER.updateProjectDisplay(DEFAULTLIST);
