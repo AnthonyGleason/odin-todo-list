@@ -76,9 +76,9 @@ body{
     color: white;
     display: flex;
     flex-direction: column;
-    margin: 3%;
+    margin: 1%;
     border-radius: 15px;
-    padding: 3%;
+    padding: 1%;
 }
 .sidebar-title{
     align-self: center;

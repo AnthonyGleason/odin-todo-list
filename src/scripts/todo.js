@@ -123,8 +123,7 @@ Display.prototype.clearProjectContainer = function(){
 Display.prototype.clearTaskContainer = function (){
     this.taskItemContainer.innerHTML="";
 };
-
-Display.prototype.renderProjectItem = function(Project,ProjectList){
+Display.prototype.createProjectItem = function (Project,ProjectList){
     //Create project item
     let projectItemDiv = document.createElement('div');
     projectItemDiv.setAttribute('class', 'project-item');
@@ -149,10 +148,72 @@ Display.prototype.renderProjectItem = function(Project,ProjectList){
     //Append elements to project item
     projectItemDiv.appendChild(projectNameDiv);
     projectItemDiv.appendChild(projectRemoveButton);
-    //Append project item to project container
-    this.projectItemContainer.appendChild(projectItemDiv);
+    return projectItemDiv;
 };
-Display.prototype.renderTaskItem = function (Task, Project, ProjectList){
+
+Display.prototype.renderProjectItem = function(Project,ProjectList){
+    
+    //Append project item to project container
+    this.projectItemContainer.appendChild(this.createProjectItem(Project,ProjectList));
+};
+Display.prototype.createUpdateTaskForm = function (taskItem, Task, Project,ProjectList){
+    //create the form
+    let updateTaskForm = document.createElement('form');
+    updateTaskForm.setAttribute('id', "update-task-form");
+    updateTaskForm.setAttribute('class', 'task-item');
+    //create the name input
+    let updateTaskNameInput = document.createElement('input');
+    updateTaskNameInput.setAttribute('type', 'text');
+    updateTaskNameInput.setAttribute('id', 'updatedTaskName')
+    updateTaskNameInput.setAttribute('class', 'task-name');
+    updateTaskNameInput.setAttribute('placeholder', Task.taskName)
+    //create the description input
+    let updateTaskDescInput = document.createElement('input');
+    updateTaskDescInput.setAttribute('type', 'text')
+    updateTaskDescInput.setAttribute('id', 'updatedTaskDesc');
+    updateTaskDescInput.setAttribute('class', 'task-desc');
+    updateTaskDescInput.setAttribute('placeholder', Task.taskDesc);
+    //create the due date input
+    let updateTaskDueDateInput= document.createElement('input');
+    updateTaskDueDateInput.setAttribute('type', 'date');
+    updateTaskDueDateInput.setAttribute('id', 'updatedTaskDueDate');
+    updateTaskDueDateInput.setAttribute('class', 'task-due-date');
+    //create the submit button
+    let updateTaskSubmitButton = document.createElement('button');
+    updateTaskSubmitButton.setAttribute('type', 'button');
+    updateTaskSubmitButton.textContent="Update Task";
+    updateTaskSubmitButton.addEventListener('click', (element)=>{
+        //check to see if any fields were left blank
+        if (updatedTaskName.value!=""){
+            Task.taskName=updatedTaskName.value;
+        }
+        if (updatedTaskDesc.value!=""){
+            Task.taskDesc=updatedTaskDesc.value;
+        }
+        if (updatedTaskDueDate.value!=""){
+            Task.taskDueDate=updatedTaskDueDate.value;
+        }
+        //update the display for only that task
+        element.srcElement.parentNode.parentNode.replaceChild(this.createTaskItem(Task,Project,ProjectList),updateTaskForm)
+    });
+    //create the cancel button
+    let updateTaskCancelButton = document.createElement('button');
+    updateTaskCancelButton.setAttribute('type', 'button');
+    updateTaskCancelButton.textContent="Cancel";
+    updateTaskCancelButton.addEventListener('click', ()=>{
+        //update the display
+        this.updateTaskDisplay(ProjectList);
+    });
+    //append elements to the newly created form
+    updateTaskForm.appendChild(updateTaskNameInput);
+    updateTaskForm.appendChild(updateTaskDescInput);
+    updateTaskForm.appendChild(updateTaskDueDateInput);
+    updateTaskForm.appendChild(updateTaskSubmitButton);
+    updateTaskForm.appendChild(updateTaskCancelButton);
+    //Update the task item div with the task form
+    taskItem.parentNode.replaceChild(updateTaskForm, taskItem);
+};
+Display.prototype.createTaskItem = function (Task, Project, ProjectList){
     //Create task item
     let taskItemDiv = document.createElement('div');
     taskItemDiv.setAttribute('class', 'task-item');
@@ -173,6 +234,15 @@ Display.prototype.renderTaskItem = function (Task, Project, ProjectList){
     taskUpdateButton.setAttribute('class', 'task-update-button');
     taskUpdateButton.textContent="Update Task";
     taskUpdateButton.addEventListener('click', ()=>{
+        //clear the display for the task that was clicked
+        let taskItem=document.querySelectorAll('.task-item')[Task.index];
+        taskItem.innerHTML="";
+
+        // //update that display with the createUpdateTaskForm and send it the index of the task
+        this.createUpdateTaskForm(taskItem, Task, Project,ProjectList);
+
+        // // on submit display task with updated form information
+        //this.updateTaskDisplay(ProjectList);
 
     });
     //Create the task remove button
@@ -191,8 +261,11 @@ Display.prototype.renderTaskItem = function (Task, Project, ProjectList){
     taskItemDiv.appendChild(taskDueDate);
     taskItemDiv.appendChild(taskUpdateButton);
     taskItemDiv.appendChild(taskRemoveButton);
+    return taskItemDiv;
+}
+Display.prototype.renderTaskItem = function (Task, Project, ProjectList){
     //Append task item to task container
-    this.taskItemContainer.appendChild(taskItemDiv);
+    this.taskItemContainer.appendChild(this.createTaskItem(Task,Project, ProjectList));
 };
 Display.prototype.toggleNewProjectForm = function(){
     this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'flex' : this.newProjectForm.style.display = 'none';
@@ -200,6 +273,7 @@ Display.prototype.toggleNewProjectForm = function(){
 Display.prototype.toggleNewTaskForm = function(){
     this.newTaskForm.style.display == 'none' ? this.newTaskForm.style.display = 'flex' : this.newTaskForm.style.display = 'none';
 };
+
 Display.prototype.updateProjectDisplay = function(ProjectList){
     this.clearProjectContainer();
     ProjectList.projectArray.forEach((Project)=>{
