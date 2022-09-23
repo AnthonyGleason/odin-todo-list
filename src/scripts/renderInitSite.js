@@ -58,7 +58,7 @@ let renderInitSite = function(){
         //create the content title div
         let contentTitleDiv = document.createElement('div');
         contentTitleDiv.setAttribute('class', 'content-title');
-        contentTitleDiv.textContent='Default Project';
+        contentTitleDiv.textContent='Select a project!';
         //create the task item container
         let taskItemContainer = document.createElement('div');
         taskItemContainer.setAttribute('class', 'task-item-container');

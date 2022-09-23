@@ -32,9 +32,14 @@ Project.prototype.updateTaskIndexes = function(){
 let ProjectList = function (){
     this.projectArray = [];
 };
+ProjectList.prototype.replaceLocalStorage = function (){
+    localStorage.setItem("projectArray", JSON.stringify(this.projectArray));
+};
 ProjectList.prototype.addProject = function(Project){
     Project.index=this.projectArray.length;
     this.projectArray.push(Project);
+     //replace local storage
+     this.replaceLocalStorage();
 };
 ProjectList.prototype.getCurrentProject = function(){
     let currentProject;
@@ -46,6 +51,8 @@ ProjectList.prototype.getCurrentProject = function(){
 ProjectList.prototype.removeProject = function(projectIndex){
     this.projectArray.splice(projectIndex, 1);
     this.updateProjectIndexes();
+    //replace local storage
+    this.replaceLocalStorage();
 };
 ProjectList.prototype.switchCurrentProject = function(newProjectIndex){
     if (this.getCurrentProject()==undefined){
