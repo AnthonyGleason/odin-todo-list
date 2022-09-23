@@ -145,6 +145,13 @@ Display.prototype.createProjectItem = function (Project,ProjectList){
     projectRemoveButton.setAttribute('class', 'project-remove-button');
     projectRemoveButton.textContent='Remove Project';
     projectRemoveButton.addEventListener('click', ()=>{
+        //check to see if the removed project was the current project
+        if (ProjectList.projectArray[Project.index].isCurrentProject==true){
+             //clear the task container
+            this.clearTaskContainer();
+            //set the content title
+            this.contentTitleDiv.textContent="Select a project!";
+        }
         //remove the project from the project list array based on the index
         ProjectList.removeProject(Project.index);
         //update the project display
