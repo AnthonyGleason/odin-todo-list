@@ -133,8 +133,13 @@ Display.prototype.createProjectItem = function (Project,ProjectList){
     projectNameDiv.textContent=Project.projectName;
     projectNameDiv.addEventListener('click',()=>{
         ProjectList.switchCurrentProject(Project.index);
+        this.switchCurrentProject(Project.index, ProjectList);
         this.updateTaskDisplay(ProjectList);
     });
+    //Check to see if the project is the current one
+    if (Project==ProjectList.getCurrentProject()){
+        projectItemDiv.style.backgroundColor="rgba(14, 20, 14, 0.3)";
+    }
     //Create the remove project button
     let projectRemoveButton = document.createElement('button');
     projectRemoveButton.setAttribute('class', 'project-remove-button');
@@ -150,13 +155,62 @@ Display.prototype.createProjectItem = function (Project,ProjectList){
     projectItemDiv.appendChild(projectRemoveButton);
     return projectItemDiv;
 };
+Display.prototype.createTaskItem = function (Task, Project, ProjectList){
+    //Create task item
+    let taskItemDiv = document.createElement('div');
+    taskItemDiv.setAttribute('class', 'task-item');
+    //Create the task name div
+    let taskNameDiv = document.createElement('div');
+    taskNameDiv.setAttribute('class', 'task-name');
+    taskNameDiv.textContent=Task.taskName;
+    //Create the task desc div
+    let taskDescDiv = document.createElement('div');
+    taskDescDiv.setAttribute('class', 'task-desc');
+    taskDescDiv.textContent=Task.taskDesc;
+    //Create the task due date div
+    let taskDueDate = document.createElement('div');
+    taskDueDate.setAttribute('class', 'task-due-date');
+    taskDueDate.textContent=Task.taskDueDate;
+    //Create the task update button
+    let taskUpdateButton = document.createElement('button');
+    taskUpdateButton.setAttribute('class', 'task-update-button');
+    taskUpdateButton.textContent="Update Task";
+    taskUpdateButton.addEventListener('click', ()=>{
+        //clear the display for the task that was clicked
+        let taskItem=document.querySelectorAll('.task-item')[Task.index];
+        taskItem.innerHTML="";
 
+        // //update that display with the createUpdateTaskForm and send it the index of the task
+        this.renderUpdateTaskForm(taskItem, Task, Project,ProjectList);
+    });
+    //Create the task remove button
+    let taskRemoveButton = document.createElement('button');
+    taskRemoveButton.setAttribute('class', 'task-remove-button');
+    taskRemoveButton.textContent="Remove Task";
+    taskRemoveButton.addEventListener('click',()=>{
+        //remove the task from the task array based on the index
+        Project.removeTask(Task.index);
+        //update the task display
+        this.updateTaskDisplay(ProjectList);
+    });
+    //Append elements to task item
+    taskItemDiv.appendChild(taskNameDiv);
+    taskItemDiv.appendChild(taskDescDiv);
+    taskItemDiv.appendChild(taskDueDate);
+    taskItemDiv.appendChild(taskUpdateButton);
+    taskItemDiv.appendChild(taskRemoveButton);
+    return taskItemDiv;
+}
 Display.prototype.renderProjectItem = function(Project,ProjectList){
-    
+    let projectItem = this.createProjectItem(Project,ProjectList);
     //Append project item to project container
-    this.projectItemContainer.appendChild(this.createProjectItem(Project,ProjectList));
+    this.projectItemContainer.appendChild(projectItem);
 };
-Display.prototype.createUpdateTaskForm = function (taskItem, Task, Project,ProjectList){
+Display.prototype.renderTaskItem = function (Task, Project, ProjectList){
+    //Append task item to task container
+    this.taskItemContainer.appendChild(this.createTaskItem(Task,Project, ProjectList));
+};
+Display.prototype.renderUpdateTaskForm = function (taskItem, Task, Project,ProjectList){
     //create the form
     let updateTaskForm = document.createElement('form');
     updateTaskForm.setAttribute('id', "update-task-form");
@@ -213,59 +267,16 @@ Display.prototype.createUpdateTaskForm = function (taskItem, Task, Project,Proje
     //Update the task item div with the task form
     taskItem.parentNode.replaceChild(updateTaskForm, taskItem);
 };
-Display.prototype.createTaskItem = function (Task, Project, ProjectList){
-    //Create task item
-    let taskItemDiv = document.createElement('div');
-    taskItemDiv.setAttribute('class', 'task-item');
-    //Create the task name div
-    let taskNameDiv = document.createElement('div');
-    taskNameDiv.setAttribute('class', 'task-name');
-    taskNameDiv.textContent=Task.taskName;
-    //Create the task desc div
-    let taskDescDiv = document.createElement('div');
-    taskDescDiv.setAttribute('class', 'task-desc');
-    taskDescDiv.textContent=Task.taskDesc;
-    //Create the task due date div
-    let taskDueDate = document.createElement('div');
-    taskDueDate.setAttribute('class', 'task-due-date');
-    taskDueDate.textContent=Task.taskDueDate;
-    //Create the task update button
-    let taskUpdateButton = document.createElement('button');
-    taskUpdateButton.setAttribute('class', 'task-update-button');
-    taskUpdateButton.textContent="Update Task";
-    taskUpdateButton.addEventListener('click', ()=>{
-        //clear the display for the task that was clicked
-        let taskItem=document.querySelectorAll('.task-item')[Task.index];
-        taskItem.innerHTML="";
-
-        // //update that display with the createUpdateTaskForm and send it the index of the task
-        this.createUpdateTaskForm(taskItem, Task, Project,ProjectList);
-
-        // // on submit display task with updated form information
-        //this.updateTaskDisplay(ProjectList);
-
+Display.prototype.switchCurrentProject = function (newProjectIndex, ProjectList){
+    //get a list of all the current project divs
+    let projectDivArray = document.querySelectorAll('.project-item');
+    //remove the background color from the old project
+    projectDivArray.forEach((projectDiv)=>{
+        projectDiv.style.backgroundColor="";
     });
-    //Create the task remove button
-    let taskRemoveButton = document.createElement('button');
-    taskRemoveButton.setAttribute('class', 'task-remove-button');
-    taskRemoveButton.textContent="Remove Task";
-    taskRemoveButton.addEventListener('click',()=>{
-        //remove the task from the task array based on the index
-        Project.removeTask(Task.index);
-        //update the task display
-        this.updateTaskDisplay(ProjectList);
-    });
-    //Append elements to task item
-    taskItemDiv.appendChild(taskNameDiv);
-    taskItemDiv.appendChild(taskDescDiv);
-    taskItemDiv.appendChild(taskDueDate);
-    taskItemDiv.appendChild(taskUpdateButton);
-    taskItemDiv.appendChild(taskRemoveButton);
-    return taskItemDiv;
-}
-Display.prototype.renderTaskItem = function (Task, Project, ProjectList){
-    //Append task item to task container
-    this.taskItemContainer.appendChild(this.createTaskItem(Task,Project, ProjectList));
+    //Assign the background color to the newly selected project
+    projectDivArray[newProjectIndex].style.backgroundColor="rgba(14, 20, 14, 0.3)";
+
 };
 Display.prototype.toggleNewProjectForm = function(){
     this.newProjectForm.style.display == 'none' ? this.newProjectForm.style.display = 'flex' : this.newProjectForm.style.display = 'none';
@@ -287,5 +298,6 @@ Display.prototype.updateTaskDisplay = function(ProjectList){
         this.renderTaskItem(Task, ProjectList.getCurrentProject(), ProjectList);
     });
 };
+
 //Export Objects
 export {Task , Display , Project, ProjectList};
