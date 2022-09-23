@@ -11,10 +11,12 @@ body{
     width: 100vw;
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-template-areas: "sidebar content";
 }
 
 /*Content Section*/
 .content{
+    grid-area: content;
     background-color: rgba(14, 20, 14, 0.8);
     color: white;
     margin: 1%;
@@ -76,6 +78,7 @@ body{
 
 /*Sidebar section*/
 .sidebar{
+    grid-area: sidebar;
     background-color: rgba(14, 20, 14, 0.8);
     color: white;
     display: flex;
