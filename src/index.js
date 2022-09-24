@@ -14,18 +14,24 @@ let DEFAULTTASK = new Task("Default Task", "Default Task Description", "2022-09-
 //Init Display Controller
 DISPLAYCONTROLLER.init(DEFAULTLIST);
 
-//Load local storage, check to see if the local storage is empty. If it is empty load the default project and default task
-if (JSON.parse(localStorage.getItem("projectArray"))==null){
-    //Display default project with default task
-    DEFAULTPROJECT.addTask(DEFAULTTASK);
-    DEFAULTLIST.addProject(DEFAULTPROJECT);
-    DISPLAYCONTROLLER.updateProjectDisplay(DEFAULTLIST);
+
+//Load local storage || add items from the local storage to the array using new and the projectlist addproject functionality
+let tempArray=JSON.parse(localStorage.getItem("projectArray"))
+tempArray.forEach((item)=>{
+    //create the project based on local storage
+    let newProject=new Project(item.projectName,item.isCurrentProject,item.index);
+    //get all tasks from the local storage
+    item.taskArray.forEach((taskItem)=>{
+        newProject.addTask(new Task(taskItem.taskName,taskItem.taskDesc,taskItem.taskDueDate,taskItem.index), DEFAULTLIST);
+    });
+    //add the projects back to the default list
+    DEFAULTLIST.addProject(newProject);
+});
+
+//update project display
+DISPLAYCONTROLLER.updateProjectDisplay(DEFAULTLIST);
+
+//if there is no current project do not output any tasks to the task display
+if (DEFAULTLIST.getCurrentProject()!=undefined){
     DISPLAYCONTROLLER.updateTaskDisplay(DEFAULTLIST);
-} else{
-    DEFAULTLIST.projectArray=JSON.parse(localStorage.getItem("projectArray"));
-    DISPLAYCONTROLLER.updateProjectDisplay(DEFAULTLIST);
-    //Check to see if a current project exists and if it does update the task display
-    if (DEFAULTLIST.getCurrentProject()!=null){
-        DISPLAYCONTROLLER.updateTaskDisplay(DEFAULTLIST);
-    };
-};
+}

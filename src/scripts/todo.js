@@ -12,13 +12,18 @@ let Project = function (projectName,isCurrentProject,index){
     this.index=index;
     this.taskArray=[];
 }
-Project.prototype.addTask = function(Task){
+Project.prototype.addTask = function(Task, ProjectList){
     Task.index=this.taskArray.length;
     this.taskArray.push(Task);
+    //replace local storage
+    ProjectList.replaceLocalStorage();
 };
-Project.prototype.removeTask = function(taskIndex){
+Project.prototype.removeTask = function(taskIndex, ProjectList){
     this.taskArray.splice(taskIndex, 1);
     this.updateTaskIndexes();
+
+    //replace local storage
+    ProjectList.replaceLocalStorage();
 };
 Project.prototype.updateTaskIndexes = function(){
     let i=0;
@@ -61,6 +66,8 @@ ProjectList.prototype.switchCurrentProject = function(newProjectIndex){
         this.getCurrentProject().isCurrentProject=false;
         this.projectArray[newProjectIndex].isCurrentProject=true;
     }
+    //replace local storage
+    this.replaceLocalStorage();
 };
 ProjectList.prototype.updateProjectIndexes = function(){
     let i=0;
@@ -116,7 +123,7 @@ Display.prototype.addEventListeners = function(ProjectList){
         this.newTaskButton.style.display='block';
     });
     this.submitNewTaskButton.addEventListener('click',()=>{
-        ProjectList.getCurrentProject().addTask(new Task(taskName.value,taskDesc.value,taskDueDate.value),ProjectList.getCurrentProject().taskArray.length);
+        ProjectList.getCurrentProject().addTask(new Task(taskName.value,taskDesc.value,taskDueDate.value,ProjectList.getCurrentProject().index),ProjectList);
         this.updateTaskDisplay(ProjectList);
     });
     this.newTaskButton.addEventListener('click',()=>{
@@ -203,7 +210,7 @@ Display.prototype.createTaskItem = function (Task, Project, ProjectList){
     taskRemoveButton.textContent="Remove Task";
     taskRemoveButton.addEventListener('click',()=>{
         //remove the task from the task array based on the index
-        Project.removeTask(Task.index);
+        Project.removeTask(Task.index, ProjectList);
         //update the task display
         this.updateTaskDisplay(ProjectList);
     });
