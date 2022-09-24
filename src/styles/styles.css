@@ -5,8 +5,18 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 15px;
 }
+button{
+    border-style:ridge;
+    border-color: black;
+    padding: 5px;
+    margin: 3px;
+    border-radius: 5px;
+    background-color: rgba(136, 136, 136,0.2);
+    cursor: pointer;
+}
 body{
-    background-image: url(../img/notebook-paper-texture.jpg);
+    background-color: rgba(132, 156, 238,0.4);
+    background-size:cover;
     height: 100vh;
     width: 100vw;
     display: grid;
@@ -16,19 +26,21 @@ body{
 
 /*Content Section*/
 .content{
+    background-color: rgba(136, 136, 136,0.2);
     grid-area: content;
-    background-color: rgba(14, 20, 14, 0.8);
-    color: white;
+    color: black;
     margin: 1%;
     padding: 2%;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .content-title{
     align-self: center;
     font-size: 22px;
     font-weight: bold;
+    padding: 10px;
 }
 .new-task-button{
     align-self: center;
@@ -43,7 +55,7 @@ body{
     flex-grow: 1;
     align-items: center;
     border-style: solid;
-    border-color: rgb(44, 44, 44);
+    border-color: rgb(136, 136, 136);
     border-radius: 10px;
     padding: 5px;
     margin: 5px;
@@ -78,32 +90,38 @@ body{
 
 /*Sidebar section*/
 .sidebar{
+    background-color: rgba(136, 136, 136,0.2);
     grid-area: sidebar;
-    background-color: rgba(14, 20, 14, 0.8);
-    color: white;
+    color: black;
     display: flex;
     flex-direction: column;
-    margin: 1%;
+    margin: 5%;
     border-radius: 15px;
     padding: 1%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .sidebar-title{
     align-self: center;
     font-size: 22px;
     font-weight: bold;
+    padding: 20px;
 }
 .project-item{
     display: flex;
     justify-content: space-between;
     border-style: solid;
     border-radius: 10px;
-    border-color: rgb(44, 44, 44);
-    padding: 5px;
+    border-color: rgb(136, 136, 136);
+    padding: 1px;
     margin: 5px;   
 }
 .project-name{
     flex-grow: 1;
     cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10px;
 }
 .project-item-container{
     flex-grow: 1;
@@ -122,4 +140,7 @@ body{
 }
 .project-button-container button{
     width: 100%;
+}
+.sidebar-project-form{
+    margin: 5px;
 }
